@@ -28,7 +28,7 @@ services:
 
     AppBundle\Converter\TwigTemplateConverter:
         arguments:
-            $engine: '@templating.engine.twig'
+            $tempDir: '%mjml_twig_converter_dir%'
 
     AppBundle\Mjml\MjmlConverter:
         arguments:

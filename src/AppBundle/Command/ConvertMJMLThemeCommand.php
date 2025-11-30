@@ -115,7 +115,7 @@ class ConvertMJMLThemeCommand extends Command
             }
 
             $twigTemplate = $this->converter->convertRTL($twigTemplate);
-            
+
             file_put_contents($twigTemplatePath, $twigTemplate);
         }
 
@@ -134,5 +134,7 @@ class ConvertMJMLThemeCommand extends Command
             $output->writeln('Copying asset '.$twigAssetPath);
             $fileSystem->copy($assetFile->getRealPath(), $twigAssetPath);
         }
+
+        return Command::SUCCESS;
     }
 }

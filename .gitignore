@@ -48,3 +48,19 @@
 /.web-server-pid
 
 /node_modules
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+###< symfony/framework-bundle ###
+
+###> siglo ###
+/.idea/
+/var/*
+!/var/mjml_twig_converter
+/var/mjml_twig_converter/*
+!/var/mjml_twig_converter/.gitkeep
+###< siglo ###

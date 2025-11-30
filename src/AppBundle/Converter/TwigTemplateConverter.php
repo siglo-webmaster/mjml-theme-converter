@@ -29,7 +29,7 @@ namespace AppBundle\Converter;
 use AppBundle\Exception\FileNotFoundException;
 use AppBundle\Exception\InvalidArgumentException;
 use AppBundle\Mjml\MjmlConverter;
-use Symfony\Bundle\TwigBundle\TwigEngine;
+use Twig\Environment;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Filesystem\Filesystem;
 use DOMDocument;
@@ -37,7 +37,7 @@ use DOMElement;
 
 class TwigTemplateConverter
 {
-    /** @var TwigEngine */
+    /** @var Environment */
     private $engine;
 
     /** @var MjmlConverter */
@@ -52,19 +52,8 @@ class TwigTemplateConverter
     /** @var string */
     private $templateContent;
 
-    /**
-     * @param TwigEngine $engine
-     * @param MjmlConverter $mjmlConverter
-     * @param string $tempDir
-     */
-    public function __construct(
-        TwigEngine $engine,
-        MjmlConverter $mjmlConverter,
-        $tempDir = ''
-    ) {
-        if (!$engine instanceof TwigEngine) {
-            throw new InvalidArgumentException('The required engine must be a TwigEngine');
-        }
+    public function __construct(Environment $engine, MjmlConverter $mjmlConverter, string $tempDir = '')
+    {
         $this->engine = $engine;
         $this->mjmlConverter = $mjmlConverter;
         $this->tempDir = empty($tempDir) ? sys_get_temp_dir() . '/mjml_twig_converter' : $tempDir;
@@ -112,7 +101,7 @@ class TwigTemplateConverter
         $style = $head->getElementsByTagName('style')->item(0);
         $head->insertBefore($blockStyleStart, $style);
         $head->appendChild($blockStyleEnd);
-        
+
         //Add RTL condition in twig layouts
         $link = $dom->createTextNode(
             "{% set direction = 'ltr' %}\n  ".
@@ -124,7 +113,7 @@ class TwigTemplateConverter
             "{% set align_right = 'left' %}\n  ".
             "{% endif %}\n  ");
         $head->insertBefore($link, $blockStyleStart);
-        
+
         $html = $dom->saveHTML();
 
         // Since DOMDocument::saveHTML converts special characters into special HTML characters we revert them back
@@ -294,7 +283,7 @@ $layoutStyles
 
         return $filteredContent;
     }
-    
+
     /**
      * @param string $templateContent
      * @param string $containerSelector
@@ -386,7 +375,9 @@ $layoutStyles
 
         file_put_contents($conversionTemplatePath, $templateContent);
 
-        $renderedLayout = $this->engine->render($conversionTemplatePath);
+        $twigConversionTemplatePath = '@MjmlTwigConverter/' . basename($conversionTemplatePath);
+
+        $renderedLayout = $this->engine->render($twigConversionTemplatePath);
         //Transform back {{ }} statements
         $renderedLayout = preg_replace('#%% (.*?) %%#', '{{ \1 }}', $renderedLayout);
 

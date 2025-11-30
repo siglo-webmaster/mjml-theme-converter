@@ -19,4 +19,5 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     mjml_mail_themes_dir: "%kernel.project_dir%/mails/themes"
+    mjml_twig_converter_dir: "%kernel.project_dir%/var/mjml_twig_converter"
     mjml_use_npm: true

@@ -1,6 +1,5 @@
 imports:
     - { resource: parameters.yml }
-    - { resource: security.yml }
     - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -15,10 +14,6 @@ framework:
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
         strict_requirements: ~
-    form: ~
-    csrf_protection: ~
-    validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -27,10 +22,8 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: ~
     http_method_override: true
-    assets: ~
     php_errors:
         log: true
-    templating: { engines: ['twig'] }
 
 # Twig Configuration
 twig:
@@ -38,6 +31,7 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%mjml_mail_themes_dir%': MjmlMailThemes
+        '%mjml_twig_converter_dir%': MjmlTwigConverter
 
 # Doctrine Configuration
 doctrine:
@@ -60,15 +54,3 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
-# Swiftmailer Configuration
-swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
-
-sensio_framework_extra:
-   router:
-        annotations: false

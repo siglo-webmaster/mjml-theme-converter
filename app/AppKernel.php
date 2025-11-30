@@ -6,27 +6,24 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            // $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            // $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
 
             if ('dev' === $this->getEnvironment()) {
-                $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+                $bundles[] = new Symfony\Bundle\MakerBundle\MakerBundle();
+                // $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
         }
 
@@ -38,12 +35,12 @@ class AppKernel extends Kernel
         return __DIR__;
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return dirname(__DIR__).'/var/logs';
     }

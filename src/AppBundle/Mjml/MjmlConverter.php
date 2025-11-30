@@ -122,7 +122,8 @@ class MjmlConverter
         file_put_contents($tmpFilePath, $mjmlContent);
 
         $convertCmd = $binPath.' '.$tmpFilePath;
-        $convertProcess = new Process($convertCmd);
+        // $convertProcess = new Process($convertCmd);
+        $convertProcess = Process::fromShellCommandline($convertCmd);
         $convertProcess->run();
         if (!$convertProcess->isSuccessful()) {
             throw new MjmlException('Could not convert mjml file', $convertProcess->getErrorOutput());
