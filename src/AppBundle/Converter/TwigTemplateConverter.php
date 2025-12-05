@@ -328,7 +328,7 @@ $layoutStyles
      *
      * @return string
      */
-    private function extractHtml($htmlContent, $selector, $nodeIndex = null)
+    protected function extractHtml($htmlContent, $selector, $nodeIndex = null)
     {
         $htmlContent = $this->replaceContainerWithTwigCondition($htmlContent, 'html-only', 'html');
         $htmlContent = $this->replaceContainerWithTwigCondition($htmlContent, 'txt-only', 'txt');

@@ -1,0 +1,115 @@
+{% extends '@MjmlMailThemes/modern_mjml/components/order_layout.mjml.twig' %}
+
+{% block title %}{{ 'Check'|trans({}, 'Emails.Body', locale) }}{% endblock %}
+
+{% block content %}
+  <mj-raw>
+    <!-- SUBTITLE BEGINING -->
+  </mj-raw>
+  <mj-section padding="0 25px">
+    <mj-column padding="0">
+      <mj-text padding-top="0" padding-bottom="0px" font-weight="600" font-size="16px">
+        Intento de consultar precio de envio para transportadora {transportadora} resulto en el siguiente error:
+      </mj-text>
+
+    </mj-column>
+  </mj-section>
+  <mj-raw>
+    <!-- SUBTITLE ENDING -->
+  </mj-raw>
+
+  <mj-raw>
+    <!-- BOX BEGINING -->
+  </mj-raw>
+  <mj-section padding="15px 50px 10px">
+    <mj-column background-color="#fefefe" border="1px solid #DFDFDF" padding-top="10px" padding-bottom="10px">
+      <mj-text padding-bottom="0px" padding-top="0px" font-size="14px">
+        {message}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-raw>
+    <!-- BOX ENDING -->
+  </mj-raw>
+
+
+  <mj-raw>
+    <!-- TABLE BEGINING -->
+  </mj-raw>
+  <mj-section>
+    <mj-column>
+      <mj-table css-class="products-table mail-alert" width="100%" padding-left="50px" padding-right="50px">
+
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="2" align="left">Id Carrito</th>
+          <td bgcolor="#FDFDFD" colspan="2" align="left">{idCart}</td>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="2" align="left">Ciudad</th>
+          <td bgcolor="#FDFDFD" colspan="2" align="left">{city}</td>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="2" align="left">Codigo postal</th>
+          <td bgcolor="#FDFDFD" colspan="2" align="left">{postCode}</td>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="2" align="left">Pais ISO</th>
+          <td bgcolor="#FDFDFD" colspan="2" align="left">{countryIsoCode}</td>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="2" align="left">Moneda</th>
+          <td bgcolor="#FDFDFD" colspan="2" align="left">{currency}</td>
+        </tr>
+
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="4">Cliente</th>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD">Id</th>
+          <th bgcolor="#FDFDFD">Nombre</th>
+          <th bgcolor="#FDFDFD" colspan="2">Email</th>
+        </tr>
+        <tr>
+          <td bgcolor="#FDFDFD">{idCustomer}</td>
+          <td bgcolor="#FDFDFD">{customerName}</td>
+          <td bgcolor="#FDFDFD" colspan="2">{customerEmail}</td>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="4">Productos</th>
+        </tr>
+        <tr>
+          <th bgcolor="#FDFDFD">Id</th>
+          <th bgcolor="#FDFDFD">Nombre</th>
+          <th bgcolor="#FDFDFD">Cantidad</th>
+          <th bgcolor="#FDFDFD">Precio</th>
+        </tr>
+
+
+        {products}
+
+        <tr>
+          <th bgcolor="#FDFDFD" colspan="3">Valor factura</th>
+          <td bgcolor="#FDFDFD">{valorFactura}</td>
+        </tr>
+      </mj-table>
+    </mj-column>
+  </mj-section>
+  <mj-raw>
+    <!-- TABLE ENDING -->
+  </mj-raw>
+
+  <mj-raw>
+    <!-- SUBTITLE BEGINING -->
+  </mj-raw>
+  <mj-section padding="0 50px 0" text-align="left">
+    <mj-column padding="0">
+      <mj-text padding="0" font-weight="600" font-size="16px">
+        Se asigno precio por defecto : {shippingPrice}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-raw>
+    <!-- SUBTITLE ENDING -->
+  </mj-raw>
+
+{% endblock %}

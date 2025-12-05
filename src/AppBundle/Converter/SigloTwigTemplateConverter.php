@@ -49,4 +49,31 @@ class SigloTwigTemplateConverter extends TwigTemplateConverter
 
         return $childTemplate;
     }
+
+    /**
+     * Fix para product_solicitud.mjml.twig <a href="{{ 'mailto:' ~ '{customer_email}' }}" se mantenga asi
+     */
+    protected function extractHtml($htmlContent, $selector, $nodeIndex = null)
+    {
+        $hasMailTo = $nodeIndex === 0 && str_contains($htmlContent, 'mailto:');
+
+        $extractedHtml = parent::extractHtml($htmlContent, $selector, $nodeIndex);
+
+        if ($hasMailTo) {
+            // devuelve los parentesis iniciales
+            $extractedHtml = preg_replace('/href="%7B%7B%20(.*?)%20%7D%7D/', 'href="{{ \1 }}', $extractedHtml);
+            // ajusta caracteres escapados adicionales
+            $extractedHtml = preg_replace_callback('/<a\s+[^>]*href="([^"]+)"[^>]*>/i', function ($m) {
+                $href = $m[1];
+
+                // only decode %20, %7B, %7D — or decode all if you prefer
+                $href = str_ireplace(['%20', '%7B', '%7D'], [' ', '{', '}'], $href);
+
+                // rebuild the tag with the decoded href
+                return str_replace($m[1], $href, $m[0]);
+            }, $extractedHtml);
+        }
+
+        return $extractedHtml;
+    }
 }

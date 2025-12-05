@@ -1,0 +1,42 @@
+{% extends '@MjmlMailThemes/modern_mjml/components/layout.mjml.twig' %}
+
+{% block title %}{{ 'Download products'|trans({}, 'Emails.Body', locale) }}{% endblock %}
+
+{% block content %}
+<mj-section padding="0 25px">
+    <mj-column padding="0">
+        <mj-raw>
+            <!-- TITLE BEGINING -->
+        </mj-raw>
+        <mj-text padding-top="0" padding-bottom="20px" font-weight="600" font-size="20px">
+            Solicitud de libro fuera de stock
+        </mj-text>
+        <mj-raw>
+            <!-- TITLE ENDING -->
+        </mj-raw>
+    </mj-column>
+</mj-section>
+
+<mj-raw>
+    <!-- BOX BEGINING -->
+</mj-raw>
+<mj-section padding="15px 50px 40px">
+    <mj-column background-color="#fefefe" border="1px solid #DFDFDF" padding-top="10px" padding-bottom="10px">
+        <mj-text>
+            El cliente con email
+            <a href="{{ 'mailto:' ~ '{customer_email}' }}" style="color: #4475A3; text-decoration: underline; font-weight: 600;">{customer_email}</a>,
+            solicitó el libro con referencia
+            <span style="color:#ea4e5a; font-weight:bold;">
+                {product_reference}
+            </span>
+                -
+            <span style="color:#db3484; font-weight:bold;">
+                {product_name}
+            </span>.
+        </mj-text>
+    </mj-column>
+</mj-section>
+<mj-raw>
+    <!-- BOX ENDING -->
+</mj-raw>
+{% endblock %}
